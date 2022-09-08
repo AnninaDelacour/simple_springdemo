@@ -1,7 +1,8 @@
 package com.example.demo.student;
 
-import javax.persistence.*;
+import javax.persistence.*; // important because if you change from Hibernate to another provider stuff will still work
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity // for Hibernate
 @Table // for DB
@@ -21,25 +22,26 @@ public class Student {
 
     private Long id;
     private String name;
-    private LocalDate dob; /* day of birth */
+    private LocalDate dob; // day of birth
+
+    @Transient // field doesn't need to be a field in column in db
     private Integer age;
+
     private String email;
 
     public Student() {
     }
 
-    public Student(Long id, String name, LocalDate dob, Integer age, String email) {
+    public Student(Long id, String name, LocalDate dob, String email) {
         this.id = id;
         this.name = name;
         this.dob = dob;
-        this.age = age;
         this.email = email;
     }
 
-    public Student(String name, LocalDate dob, Integer age, String email) {
+    public Student(String name, LocalDate dob, String email) {
         this.name = name;
         this.dob = dob;
-        this.age = age;
         this.email = email;
     }
 
@@ -68,7 +70,7 @@ public class Student {
     }
 
     public Integer getAge() {
-        return age;
+        return Period.between(this.dob, LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {
