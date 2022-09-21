@@ -18,13 +18,28 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
+    @GetMapping // g
     public List<Student> getStudents(){
         return studentService.getStudents();
     }
 
-    @PostMapping
+    @PostMapping // taking the @RequestBody (JSON) and map it to the student DB
     public void registerNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
+    }
+
+    // updating student's name and email
+    @PutMapping(path = "{studentId}")
+    public void updateStudent(
+            @PathVariable("studentId") Long studentId,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email) {
+        studentService.updateStudent(studentId, name, email);
+    }
+
+    @DeleteMapping(path = "{studentId}")
+    public void deleteStudent(
+            @PathVariable("studentId") Long studentId){
+        studentService.deleteStudent(studentId);
     }
 }

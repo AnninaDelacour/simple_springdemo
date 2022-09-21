@@ -12,7 +12,7 @@ import java.util.List;
 @Configuration
 public class StudentConfig {
 
-    @Bean
+    @Bean // What and why @Beans in Spring: https://www.baeldung.com/spring-bean
     CommandLineRunner commandLineRunner(StudentRepository repository) {
         return args -> {
             Student mariam = new Student(

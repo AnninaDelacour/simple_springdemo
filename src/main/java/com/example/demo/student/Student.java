@@ -22,7 +22,7 @@ public class Student {
 
     private Long id;
     private String name;
-    private LocalDate dob; // day of birth
+    private LocalDate dob; // dob = day of birth
 
     @Transient // field doesn't need to be a field in column in db
     private Integer age;
@@ -69,6 +69,7 @@ public class Student {
         this.dob = dob;
     }
 
+    // getting the age in an easy way
     public Integer getAge() {
         return Period.between(this.dob, LocalDate.now()).getYears();
     }
